@@ -27,7 +27,7 @@ public class ControladorWindgetSAP implements SAPObserver{
     }
 
     @Override
-    public void cambioRegistroA(byte v) {
+    public void cambioRegistroA(int v) {
         for (int i = 0; i <= 7; i++) {
             widgetSAP.getBtns_bitsA()[i].setText(sistema.decodificarRegistro(SistemaSAP.TipoRegistro.A, 7 - i));
         }
@@ -35,7 +35,7 @@ public class ControladorWindgetSAP implements SAPObserver{
     }
 
     @Override
-    public void cambioRegistroB(byte v) {
+    public void cambioRegistroB(int v) {
         for (int i = 0; i <= 7; i++) {
             widgetSAP.getBtns_bitsB()[i].setText(sistema.decodificarRegistro(SistemaSAP.TipoRegistro.B, 7 - i));
         }
@@ -43,14 +43,14 @@ public class ControladorWindgetSAP implements SAPObserver{
     }
 
     @Override
-    public void cambioPC(byte v) {
+    public void cambioPC(int v) {
         for (int i = 0; i <= 3; i++) {
             widgetSAP.getBtns_bitsPC()[i].setText(sistema.decodificarRegistro(SistemaSAP.TipoRegistro.PC, 3 - i));
         }
     }
 
     @Override
-    public void cambioMAR(byte v) {
+    public void cambioMAR(int v) {
         for (int i = 0; i <= 3; i++) {
             widgetSAP.getBtns_bitsMAR()[i].setText(sistema.decodificarRegistro(SistemaSAP.TipoRegistro.MAR, 3 - i));
         }
@@ -58,22 +58,22 @@ public class ControladorWindgetSAP implements SAPObserver{
     }
 
     @Override
-    public void cambioOUT(byte v) {
+    public void cambioOUT(int v) {
         for (int i = 0; i <= 7; i++) {
             widgetSAP.getBtns_bitsOUT()[i].setText(sistema.decodificarRegistro(SistemaSAP.TipoRegistro.OUT, 7 - i));
         }
-        widgetSAP.getVistaDisplay().setValor(v);
+        widgetSAP.getVistaDisplay().setValor(Integer.valueOf(v).intValue());
     }
 
     @Override
-    public void cambioIR(byte v) {
+    public void cambioIR(int v) {
         for (int i = 0; i <= 7; i++) {
             widgetSAP.getBtns_bitsIR()[i].setText(sistema.decodificarRegistro(SistemaSAP.TipoRegistro.IR, 7 - i));
         }
     }
 
     @Override
-    public void cambioConteoPaso(byte newVal) {
+    public void cambioConteoPaso(int newVal) {
         widgetSAP.getLblStepCt().setText("" + newVal);
     }
 
@@ -92,7 +92,7 @@ public class ControladorWindgetSAP implements SAPObserver{
     }
     
     @Override
-    public void cambioBUS(byte v) {
+    public void cambioBUS(int v) {
         for (int i = 0; i <= 7; i++) {
             widgetSAP.getBtns_bistBUS()[i].setText(sistema.decodificarRegistro(SistemaSAP.TipoRegistro.BUS, 7 - i));
         }

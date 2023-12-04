@@ -28,7 +28,7 @@ public class VistaWidgetRAM extends JPanel {
     private JButton btnAssembler;
     private JButton btnResaltarMAR;
     private JPanel parentPanel;
-    private byte valorMAR;
+    private int valorMAR;
     private boolean debeResaltarMAR;
 
     private ControladorWidgetRAM control;
@@ -216,11 +216,11 @@ public class VistaWidgetRAM extends JPanel {
         this.btnResaltarMAR = highlightMarButton;
     }
 
-    public byte getValorMAR() {
+    public int getValorMAR() {
         return valorMAR;
     }
 
-    public void setValorMAR(byte v) {
+    public void setValorMAR(int v) {
         this.valorMAR = v;
     }
 

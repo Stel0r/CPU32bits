@@ -4,7 +4,7 @@ import interfaces.IRegistro;
 
 public class Registro4Bit implements IRegistro {
 
-    private byte valor;
+    private int valor;
 
     public Registro4Bit() {
         this.valor = 0;
@@ -12,7 +12,7 @@ public class Registro4Bit implements IRegistro {
 
     @Override
     // Carga valor de 4 bits en el registro
-    public void setValor(byte v) {
+    public void setValor(int v) {
         // Asegúrese de que la entrada sea de 4 bits
         if (v > 0b1111) {
             throw new RuntimeException();
@@ -22,7 +22,7 @@ public class Registro4Bit implements IRegistro {
 
     @Override
     // Getter
-    public byte getValor() {
+    public int getValor() {
         return this.valor;
     }
 

@@ -48,11 +48,11 @@ public class ALU {
     }
 
     // Devuelve el valor actual de la ALU sin el estado
-    public byte ALUOut(boolean sub) {
+    public int ALUOut(boolean sub) {
         if (sub) {
-            return (byte) (this.registroA.getValor() - this.registroB.getValor());
+            return (int) (this.registroA.getValor() - this.registroB.getValor());
         } else {
-            return (byte) (this.registroA.getValor() + this.registroB.getValor());
+            return (int) (this.registroA.getValor() + this.registroB.getValor());
         }
     }
 

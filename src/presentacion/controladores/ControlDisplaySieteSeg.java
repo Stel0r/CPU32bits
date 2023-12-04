@@ -16,7 +16,7 @@ public class ControlDisplaySieteSeg implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().contentEquals("toggle")) {
             vista7Seg.setConSigno(!vista7Seg.isConSigno());
-            vista7Seg.setValor(vista7Seg.getByteValor());
+            vista7Seg.setValor(vista7Seg.getintValor());
 
             // Cambia etiqueta
             vista7Seg.getBtnCambioModo().setText(vista7Seg.isConSigno() ? vista7Seg.TWOS_COMP_LABEL : vista7Seg.UNSIGNED_LABEL);

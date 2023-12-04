@@ -72,7 +72,7 @@ public class ControlAssembler implements ActionListener {
         }
 
         // Obtenga la RAM de SAP
-        byte[] ram = this.sistema.getRAM().getData();
+        int[] ram = this.sistema.getRAM().getData();
 
         // Obtenga el último programa compilado, como una matriz de cadenas
         String[] program = vistaAssembler.getLblSalida().getText().split("<br>");
@@ -87,13 +87,13 @@ public class ControlAssembler implements ActionListener {
 
         // Mover cada cadena a la memoria
         for (int i = 0; i < ram.length; i++) {
-            this.sistema.getRAM().cambiarValor(i, (byte) (0b11111111 & Integer.parseInt(program[i], 2)));
+            this.sistema.getRAM().cambiarValor(i, (int) (0b11111111 & Integer.parseInt(program[i], 2)));
         }
     }
 
     private void decompilar() {
         // Obtener el contenido de ram
-        byte[] ram = this.sistema.getRAM().getData();
+        int[] ram = this.sistema.getRAM().getData();
 
         // Escribe el contenido de la RAM en el área de salida
         String out = "<html> [Dirección] Binario / Decimal<br>";
@@ -113,8 +113,8 @@ public class ControlAssembler implements ActionListener {
         // Decompilar el programa
         out = "";
         for (int i = 0; i < ram.length; i++) {
-            byte opCode = (byte) (0b11110000 & ram[i]);
-            byte arg = (byte) (0b00001111 & ram[i]);
+            int opCode = (int) (0b11110000 & ram[i]);
+            int arg = (int) (0b00001111 & ram[i]);
             SistemaSAP.TipoInstruccion opType = sistema.decodificarInstruccion(opCode);
             switch (opType) {
                 case LDA:
@@ -288,7 +288,7 @@ public class ControlAssembler implements ActionListener {
 
         // Validar que tenemos suficiente memoria para el programa
         if (result.size() + deletionIndices.size() > 16) {
-            return "<html>[Error ensamblador] No se puede compilar el programa en los 16 bytes.</html>";
+            return "<html>[Error ensamblador] No se puede compilar el programa en los 16 ints.</html>";
         }
 
         // Toma todas las etiquetas
@@ -640,7 +640,7 @@ public class ControlAssembler implements ActionListener {
         }
     }
 
-    private String argTo4BitString(byte arg) {
+    private String argTo4BitString(int arg) {
         String rVal = Integer.toBinaryString(0b1111 & arg) + "";
 
         if (rVal.length() == 4) {

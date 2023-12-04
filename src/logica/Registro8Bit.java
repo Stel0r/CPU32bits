@@ -4,19 +4,19 @@ import interfaces.IRegistro;
 
 public class Registro8Bit implements IRegistro {
 
-    private byte valor;
+    private int valor;
 
     public Registro8Bit() {
         this.valor = 0;
     }
 
     @Override
-    public void setValor(byte v) {
+    public void setValor(int v) {
         this.valor = v;
     }
 
     @Override
-    public byte getValor() {
+    public int getValor() {
         return this.valor;
     }
 

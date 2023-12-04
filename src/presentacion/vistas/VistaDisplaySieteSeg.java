@@ -20,7 +20,7 @@ import presentacion.controladores.ControlDisplaySieteSeg;
 public class VistaDisplaySieteSeg extends JPanel {
 
     private boolean conSigno; // Si 0 = sin signo; 1 = con signo, aplica complemento a 2
-    private byte valor;
+    private int valor;
     
     private GridBagConstraints c;
 
@@ -39,7 +39,7 @@ public class VistaDisplaySieteSeg extends JPanel {
     public static final String TWOS_COMP_LABEL = "[Modo] Complemento a 2";
     public static final String UNSIGNED_LABEL  = "[Modo] Sin signo";
 
-    public VistaDisplaySieteSeg(byte val) {
+    public VistaDisplaySieteSeg(int val) {
         // Carga los íconos a la memoria
         String strRuta = "/iconos/icon_";
         iconNumeros = new ImageIcon[10];
@@ -129,12 +129,12 @@ public class VistaDisplaySieteSeg extends JPanel {
         }
     }
 
-    public void setValor(byte val) {
+    public void setValor(int val) {
         this.setValor(val, this.conSigno);
         this.valor = val;
     }
 
-    private void setValor(byte val, boolean complemento) {
+    private void setValor(int val, boolean complemento) {
         if (!complemento) {
             int unsignedVal = 0b11111111 & val;
 
@@ -162,7 +162,7 @@ public class VistaDisplaySieteSeg extends JPanel {
         }
 
         // De lo contrario, tenemos un número negativo.
-        VistaDisplaySieteSeg.this.setValor((byte) (128 - (0b01111111 & val)), false);
+        VistaDisplaySieteSeg.this.setValor((int) (128 - (0b01111111 & val)), false);
         setImagen(4, -1);
 
     }
@@ -175,12 +175,12 @@ public class VistaDisplaySieteSeg extends JPanel {
         this.conSigno = signo;
     }
 
-    public byte getByteValor() {
+    public int getintValor() {
         return valor;
     }
 
-    public void setByteValor(byte byteVal) {
-        this.valor = byteVal;
+    public void setintValor(int intVal) {
+        this.valor = intVal;
     }
 
     public JButton getBtnCambioModo() {
