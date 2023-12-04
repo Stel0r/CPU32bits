@@ -29,7 +29,7 @@ public class ControladorWidgetRAM implements interfaces.IRAMObserver, ActionList
 
         // Iterar sobre todos los bits en la posición de memoria actual
         for (int i = 0; i <= 7; i++) {
-            widgetRAM.getBtnArrayBotones()[address][i].setText("" + this.buscarEnRAM(address, 7 - i));
+            widgetRAM.getBtnArrayBotones()[address][i].setText("" + this.buscarEnRAM(address,  7 - i));
 
             // Compruebar si es el valor MAR, en cuyo caso se necesita un color para resaltar
             if (widgetRAM.isDebeResaltarMAR() && address == widgetRAM.getValorMAR()) {
@@ -205,7 +205,6 @@ public class ControladorWidgetRAM implements interfaces.IRAMObserver, ActionList
         // Analizar el cambio de  bit en la posición 
         int bitPos = Byte.parseByte(e.getActionCommand().substring(e.getActionCommand().indexOf(",") + 1));
         bitPos = (int) (7 - bitPos);
-
         // Obtener el valor actual del bit agregar la posición modificada
         int currVal = buscarEnRAM(address, bitPos);
         // Obtenga el valor actual de la memoria en la dirección especificada
@@ -213,12 +212,14 @@ public class ControladorWidgetRAM implements interfaces.IRAMObserver, ActionList
 
         // Determinar si necesitamos restar o sumar
         int newVal;
-        if (currVal == 1) {
+        System.out.println(currVal);
+        if (currVal == 15) {
             // Restar   
-            newVal = (int) (memVal - Math.pow(2, bitPos));
+            newVal = (int) (memVal - (Math.pow(16, bitPos)*15));
         } else {
             // Sumar
-            newVal = (int) (memVal + Math.pow(2, bitPos));
+            
+            newVal = (int) (memVal + Math.pow(16, bitPos));
         }
         this.sistema.getRAM().cambiarValor(address, newVal);
 
@@ -229,7 +230,8 @@ public class ControladorWidgetRAM implements interfaces.IRAMObserver, ActionList
     // Función auxiliar para acceder a bits individuales en la memoria; Address: [0, 15]
     // bitPos: [0, 7]
     public int buscarEnRAM(int address, int bitPos) {
-        int val = 0b11111111 & this.sistema.getRAM().getData()[address];
-        return (val >> bitPos) & 0b1;
+        String val = Integer.toHexString(this.sistema.getRAM().getData()[address]);
+        val = "0".repeat(8-val.length())+val;
+        return Integer.parseInt(val.charAt(7-bitPos)+"",16);
     }
 }
