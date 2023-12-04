@@ -688,7 +688,9 @@ public class SistemaSAP implements IClockObserver {
                 default:
                     break;
             }
-        return "" + (0b1 & (val >> bitPos));
+            String valS = Integer.toHexString(val);
+            valS = "0".repeat(8-valS.length())+valS;
+        return Integer.toHexString(Integer.parseInt(valS.charAt(7-bitPos)+"",16)).toUpperCase();
     }
     
     // Implementación del Patrón Observer
