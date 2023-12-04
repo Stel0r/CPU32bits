@@ -67,7 +67,7 @@ public class VistaWidgetRAM extends JPanel {
         btnArrayBotones = new JButton[16][8]; // 16 posiciones de 8 bit cada una
         for (int i = 0; i < 16; i++) {
             for (int j = 0; j < 8; j++) {
-                this.btnArrayBotones[i][j] = new JButton("" + getControl().buscarEnRAM(i, 7 - j));
+                this.btnArrayBotones[i][j] = new JButton(Integer.toHexString(getControl().buscarEnRAM(i, 7 - j)).toUpperCase());
                 this.btnArrayBotones[i][j].setPreferredSize(buttonSize);
                 this.btnArrayBotones[i][j].setActionCommand(i + "," + j);
                 this.btnArrayBotones[i][j].addActionListener(getControl());

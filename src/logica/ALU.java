@@ -23,21 +23,21 @@ public class ALU {
         // Calcula es estado de Zero
         int resultado;
         if (sub) {
-            resultado = (0b00000000000000000000000011111111 & this.registroA.getValor())
-                    - (0b00000000000000000000000011111111 & this.registroB.getValor());
+            resultado = (0b11111111111111111111111111111111 & this.registroA.getValor())
+                    - (0b11111111111111111111111111111111 & this.registroB.getValor());
         } else {
-            resultado = (0b00000000000000000000000011111111 & this.registroA.getValor())
-                    + (0b00000000000000000000000011111111 & this.registroB.getValor());
+            resultado = (0b11111111111111111111111111111111 & this.registroA.getValor())
+                    + (0b11111111111111111111111111111111 & this.registroB.getValor());
         }
 
-        if ((resultado & 0b11111111) == 0) {
+        if ((resultado & 0b11111111111111111111111111111111) == 0) {
             zF = true;
         } else {
             zF = false;
         }
 
         // Calcula el estado de Acarreo
-        if ((resultado & 0b100000000) == 0) {
+        if ((resultado & 0b10000000000000000000000000000000) == 0) {
             cF = false;
         } else {
             cF = true;
