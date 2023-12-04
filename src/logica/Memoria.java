@@ -47,6 +47,7 @@ public class Memoria {
 
     // Cambia manualmente una dirección de memoria (utilizada en WidgetRAM)
     public void cambiarValor(int address, int newVal) {
+        
         this.data[address] = newVal;
         this.notifyObservers(address);
     }

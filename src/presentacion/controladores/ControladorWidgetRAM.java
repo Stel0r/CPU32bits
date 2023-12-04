@@ -182,17 +182,17 @@ public class ControladorWidgetRAM implements interfaces.IRAMObserver, ActionList
 
             // Actualizamos el contenido de la memoria con el programa demo
             // Nota: Este programa es un simple contador
-            arr[0] = 0b01010000;
+            arr[0] = 0b00000101000000000000000000000000;
             this.cambiaValorRAM(0);
-            arr[1] = 0b00101110;
+            arr[1] = 0b00000010000000000000000000001110;
             this.cambiaValorRAM(1);
-            arr[2] = (int) 0b11100000;
+            arr[2] = (int) 0b00001110000000000000000000000000;
             this.cambiaValorRAM(2);
-            arr[3] = 0b01001010;
+            arr[3] = 0b00000100000000000000000000001010;
             this.cambiaValorRAM(3);
-            arr[4] = 0b01100001;
+            arr[4] = 0b00000110000000000000000000000001;
             this.cambiaValorRAM(4);
-            arr[14] = 0b00000001;
+            arr[14] = 0b00000000000000000000000000000001;
             this.cambiaValorRAM(14);
 
             return;
@@ -212,7 +212,6 @@ public class ControladorWidgetRAM implements interfaces.IRAMObserver, ActionList
 
         // Determinar si necesitamos restar o sumar
         int newVal;
-        System.out.println(currVal);
         if (currVal == 15) {
             // Restar   
             newVal = (int) (memVal - (Math.pow(16, bitPos)*15));

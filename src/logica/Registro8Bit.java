@@ -17,6 +17,7 @@ public class Registro8Bit implements IRegistro {
 
     @Override
     public int getValor() {
+        
         return this.valor;
     }
 

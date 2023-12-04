@@ -136,18 +136,15 @@ public class SistemaSAP implements IClockObserver {
         // Obtener el valor almacenado en el registro de instrucciones
         int instruccion = this.registroIR.getValor();
         // Descartar los cuatro bits menos significativos
-        instruccion =  (instruccion & 0b11110000);
-        
+        instruccion =  (instruccion & 0b11111111000000000000000000000000);
         // Analizar el valor
         return decodificarInstruccion(instruccion);
     }
 
     // Método auxiliar que analiza un byte y encuentra su tipo de instrucción
     public TipoInstruccion decodificarInstruccion(int i) {
-        
-        byte instruccion = (byte) (i>>4);
-        instruccion = (byte) (instruccion & 0b00001111);
-        System.out.println(instruccion);
+        int instruccion =  (i>>24);
+        instruccion =  (instruccion & 0b0000000000000000000011111111);
         switch (instruccion) {
             case 0:
                 return TipoInstruccion.NOP;
@@ -183,7 +180,8 @@ public class SistemaSAP implements IClockObserver {
         String log = "[" + address + "]\t";
 
         // Primero, agregue la instrucción al Log
-        int instructionVal =  (this.getRAM().getData()[address] & 0b11110000);
+        int instructionVal =  (this.getRAM().getData()[address] & 0b11111111000000000000000000000000);
+        
         TipoInstruccion t = decodificarInstruccion(instructionVal);
 
         // Manejar el resultado de la instrucción decodificada
@@ -229,7 +227,7 @@ public class SistemaSAP implements IClockObserver {
         log += " ";
         if (t != TipoInstruccion.NOP && t != TipoInstruccion.INVALID && t != TipoInstruccion.HLT
                 && t != TipoInstruccion.OUT) {
-            log += this.getRAM().getData()[address] & 0b00001111;
+            log += this.getRAM().getData()[address] & 0b00000000111111111111111111111111;
         }
 
         // Finalmente, agregue el valor decimal
@@ -526,13 +524,13 @@ public class SistemaSAP implements IClockObserver {
                 this.notificarCambioBUS();
             }
             if (this.lineasControl[RO]) {
-                this.bus.setValor((byte) this.RAM.memoryOut());
+                this.bus.setValor(this.RAM.memoryOut());
                 EventLog.getEventLog().addEntrada("Valor de RAM en el bus");
                 this.notificarCambioBUS();
             }
             if (this.lineasControl[IO]) {
                 // Coloque 4 bits menos significativos del registro de instrucciones en el bus
-                this.bus.setValor((byte) (0b00001111 & this.registroIR.getValor()));
+                this.bus.setValor( (0b00000000111111111111111111111111 & this.registroIR.getValor()));
                 this.notificarCambioBUS();
                 EventLog.getEventLog().addEntrada("Valor del Instruction Register en el bus (4 Bits)");
             }
@@ -602,7 +600,7 @@ public class SistemaSAP implements IClockObserver {
 
             }
             if (this.lineasControl[J]) {
-                this.programCounter.setValor((byte) (this.bus.getValor() & 0b1111));
+                this.programCounter.setValor((byte) (this.bus.getValor() & 0b111111111111111111111111));
                 this.notificarCambioPC();
                 EventLog.getEventLog().addEntrada("Program Counter cambia por la bandera J");
             }
