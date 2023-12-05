@@ -176,27 +176,19 @@ public class ControladorWidgetRAM implements interfaces.IRAMObserver, ActionList
             // Primero borramos la memoria
             for (int i = 0; i < 16; i++) {
                 // Coloca en cada posición 0
-                arr[i] = 0;
                 // La pantalla vuelve a pintar
-                this.cambiaValorRAM(i);
+                this.sistema.getRAM().cambiarValor(i, 0);
 
             }
 
             // Actualizamos el contenido de la memoria con el programa demo
             // Nota: Este programa es un simple contador
-            arr[0] = 0b00000101000000000000000000000000;
-            this.cambiaValorRAM(0);
-            arr[1] = 0b00000010000000000000000000001110;
-            this.cambiaValorRAM(1);
-            arr[2] = (int) 0b00001110000000000000000000000000;
-            this.cambiaValorRAM(2);
-            arr[3] = 0b00000100000000000000000000001010;
-            this.cambiaValorRAM(3);
-            arr[4] = 0b00000110000000000000000000000001;
-            this.cambiaValorRAM(4);
-            arr[14] = 0b00000000000000000000000000000001;
-            this.cambiaValorRAM(14);
-
+            this.sistema.getRAM().cambiarValor(0, 0b00000101000000000000000000000000);
+            this.sistema.getRAM().cambiarValor(1, 0b00000010000000000000000000001110);
+            this.sistema.getRAM().cambiarValor(2, 0b00001110000000000000000000000000);
+            this.sistema.getRAM().cambiarValor(3, 0b00000100000000000000000000001010);
+            this.sistema.getRAM().cambiarValor(4, 0b00000110000000000000000000000001);
+            this.sistema.getRAM().cambiarValor(14, 0b00000000000000000000000000000001);
             return;
         }
 
