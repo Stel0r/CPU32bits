@@ -4,7 +4,10 @@ package presentacion;
 import logica.SistemaSAP;
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
+
 import logica.HiloReloj;
+import presentacion.vistas.VistaMemoria;
 import presentacion.vistas.VistaPanelCPU;
 
 
@@ -13,6 +16,7 @@ public class Modelo {
     private JFrame ventanaPrincipal;
     private VistaPanelCPU panelCPU;
     private SistemaSAP sistema;    
+    public VistaMemoria visMemoria;
     
     private boolean ejecutandoPrograma;
     private HiloReloj hiloReloj;
@@ -42,7 +46,8 @@ public class Modelo {
 
     public VistaPanelCPU getPanelCPU(){
         if(panelCPU == null){
-            panelCPU = new VistaPanelCPU(this);   
+            panelCPU = new VistaPanelCPU(this);  
+             
         }
         return panelCPU;
     }

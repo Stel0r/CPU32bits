@@ -28,29 +28,31 @@ public class ControladorWidgetRAM implements interfaces.IRAMObserver, ActionList
     public void cambiaValorRAM(int address) {
 
         // Iterar sobre todos los bits en la posición de memoria actual
-        for (int i = 0; i <= 7; i++) {
-            widgetRAM.getBtnArrayBotones()[address][i].setText(Integer.toHexString(this.buscarEnRAM(address,  7 - i)).toUpperCase());
+        if(address < 16){
+            for (int i = 0; i <= 7; i++) {
+                widgetRAM.getBtnArrayBotones()[address][i].setText(Integer.toHexString(this.buscarEnRAM(address,  7 - i)).toUpperCase());
 
-            // Compruebar si es el valor MAR, en cuyo caso se necesita un color para resaltar
-            if (widgetRAM.isDebeResaltarMAR() && address == widgetRAM.getValorMAR()) {
-                widgetRAM.getBtnArrayBotones()[address][i].setBackground(widgetRAM.COLOR_MAR);
-            } else {
-                widgetRAM.getBtnArrayBotones()[address][i].setBackground(widgetRAM.getBtnArrayBotones()[address][i].getText().equals("1") ? widgetRAM.COLOR_ON : widgetRAM.COLOR_OFF);
-            }
-
-            // Si estamos en la posición más a la derecha, mantenga el borde
-            if (i == 7) {
-                widgetRAM.getBtnArrayBotones()[address][i].setBorder(widgetRAM.RIGHT_BORDER);
-            } else {
-                widgetRAM.getBtnArrayBotones()[address][i].setBorder(null);
-            }
-
-            // Si estamos en la fila inferior, mantener el borde.
-            if (address == 15) {
-                if (i == 7) {
-                    widgetRAM.getBtnArrayBotones()[address][i].setBorder(widgetRAM.BOTTOM_RIGHT_BORDER);
+                // Compruebar si es el valor MAR, en cuyo caso se necesita un color para resaltar
+                if (widgetRAM.isDebeResaltarMAR() && address == widgetRAM.getValorMAR()) {
+                    widgetRAM.getBtnArrayBotones()[address][i].setBackground(widgetRAM.COLOR_MAR);
                 } else {
-                    widgetRAM.getBtnArrayBotones()[address][i].setBorder(widgetRAM.BOTTOM_BORDER);
+                    widgetRAM.getBtnArrayBotones()[address][i].setBackground(widgetRAM.getBtnArrayBotones()[address][i].getText().equals("1") ? widgetRAM.COLOR_ON : widgetRAM.COLOR_OFF);
+                }
+
+                // Si estamos en la posición más a la derecha, mantenga el borde
+                if (i == 7) {
+                    widgetRAM.getBtnArrayBotones()[address][i].setBorder(widgetRAM.RIGHT_BORDER);
+                } else {
+                    widgetRAM.getBtnArrayBotones()[address][i].setBorder(null);
+                }
+
+                // Si estamos en la fila inferior, mantener el borde.
+                if (address == 15) {
+                    if (i == 7) {
+                        widgetRAM.getBtnArrayBotones()[address][i].setBorder(widgetRAM.BOTTOM_RIGHT_BORDER);
+                    } else {
+                        widgetRAM.getBtnArrayBotones()[address][i].setBorder(widgetRAM.BOTTOM_BORDER);
+                    }
                 }
             }
         }

@@ -37,12 +37,22 @@ public class VistaPanelCPU extends JPanel{
     public static final Color VIEW_BACKGROUND_COLOR = new Color(225, 246, 203);    
         
     public VistaPanelCPU(Modelo m) {
+
+        JPanel panelPrincipal = new JPanel();
+
+        JTabbedPane tabPanel= new JTabbedPane();
+        tabPanel.addTab("inicio", panelPrincipal);
+        this.add(tabPanel);
+        
         this.modelo = m;
         this.sistema = modelo.getSistema();
         this.setBackground(VIEW_BACKGROUND_COLOR);
+
+        VistaMemoria memVista = new VistaMemoria(this.sistema.getRAM());
+        tabPanel.addTab("Memoria", memVista);
         
         // Set the Layout
-        this.setLayout(new GridBagLayout());
+        panelPrincipal.setLayout(new GridBagLayout());
         c = new GridBagConstraints();
         c.fill = GridBagConstraints.VERTICAL;
 
@@ -53,19 +63,19 @@ public class VistaPanelCPU extends JPanel{
         c.gridx = 1;
         c.gridy = 0;
         c.gridheight = 8;
-        this.add(sapWidget, c);
+        panelPrincipal.add(sapWidget, c);
 
         // Add the RAM View Widget
         c.gridx = 0;
         c.gridy = 0;
-        this.add(ramWidget, c);
+        panelPrincipal.add(ramWidget, c);
 
         // Display the status of the clock
         lblEstadoReloj = new JLabel("Reloj: " + (logica.Clock.getClock().getEstado() ? "ALTO" : "BAJO"));
         c.gridx = 3;
         c.gridy = 0;
         c.gridheight = 1;
-        this.add(lblEstadoReloj, c);
+        panelPrincipal.add(lblEstadoReloj, c);
 
         // Add reset button
         btnReset = new JButton("Reset");
@@ -75,7 +85,7 @@ public class VistaPanelCPU extends JPanel{
         c.gridx = 3;
         c.gridy = 1;
         c.gridheight = 1;
-        this.add(btnReset, c);
+        panelPrincipal.add(btnReset, c);
 
         // Add toggle clock button
         c.gridx = 3;
@@ -84,7 +94,7 @@ public class VistaPanelCPU extends JPanel{
         this.btnClock = new JButton("Ejecutar 1 Paso");
         this.btnClock.addActionListener(getControl());
         this.btnClock.setActionCommand("clockButton");
-        this.add(btnClock, c);
+        panelPrincipal.add(btnClock, c);
 
         // Add autoplay button
         c.gridx = 3;
@@ -93,7 +103,7 @@ public class VistaPanelCPU extends JPanel{
         this.btnEjecutar = new JButton("Ejecutar");
         this.btnEjecutar.setActionCommand("autoplay");
         this.btnEjecutar.addActionListener(getControl());
-        this.add(btnEjecutar, c);
+        panelPrincipal.add(btnEjecutar, c);
 
         // Add speed slider label
         c.gridx = 3;
@@ -103,7 +113,7 @@ public class VistaPanelCPU extends JPanel{
         t.setHorizontalAlignment(JLabel.CENTER);
         c.insets = new Insets(0, 7, -1, 5);
         t.setBorder(BorderFactory.createLineBorder(Color.black));
-        this.add(t, c);
+        panelPrincipal.add(t, c);
         c.ipady -= 5;
 
         // Agregar slider velocidad
@@ -123,7 +133,7 @@ public class VistaPanelCPU extends JPanel{
         sliVelocidad.setLabelTable(labelTable);
         sliVelocidad.setPaintLabels(true);
         sliVelocidad.addChangeListener(getControl());
-        this.add(this.sliVelocidad, c);
+        panelPrincipal.add(this.sliVelocidad, c);
 
         // Agrega un espacio a la izquierda del registro; agregar visualizador de registros
         c.insets = new Insets(0, 6, 5, 0);
@@ -142,13 +152,13 @@ public class VistaPanelCPU extends JPanel{
         sv.setAutoscrolls(true);
         sv.setPreferredSize(new Dimension(20, 100));
         sv.setMaximumSize(new Dimension(20, 100));
-        this.add(sv, c);
+        panelPrincipal.add(sv, c);
 
         c.ipadx = 0;
         c.ipady = 0;
         c.gridx = 3;
         c.gridy = 7;
-        this.add(this.display7Seg, c);
+        panelPrincipal.add(this.display7Seg, c);
 
         // Add the view as a log observer
         logica.EventLog.getEventLog().addObserver(getControl());
