@@ -14,7 +14,7 @@ public class Registro4Bit implements IRegistro {
     // Carga valor de 4 bits en el registro
     public void setValor(int v) {
         // Asegúrese de que la entrada sea de 4 bits
-        if (v > 0b1111111111111111111111) {
+        if (v > 0b1111111111111111111111 || v > 4000000) {
             throw new RuntimeException();
         }
         this.valor = v;
